@@ -39,7 +39,8 @@ public class UsersServiceImpl implements UserService {
             }
             CommonResponseBean commonResponseBean = new CommonResponseBean();
             commonResponseBean.setResponseCode(HttpStatus.OK.value());
-            commonResponseBean.setResponseDescription("User successfully fetched");
+            commonResponseBean.setResponseDescription("Users successfully fetched");
+            commonResponseBean.setData(userResponseDtoList);
             return commonResponseBean;
 
         } else {
@@ -48,5 +49,36 @@ public class UsersServiceImpl implements UserService {
             commonResponseBean.setResponseDescription("No Resource found");
         }
         return null;
+    }
+
+    @Override
+    public CommonResponseBean getUserById(int userId) {
+        User user = userRepository.findById(userId).orElse(null);
+
+        if (user != null) {
+            UserResponseDto userResponseDto = new UserResponseDto();
+            userResponseDto.setId(user.getId());
+            userResponseDto.setUsername(user.getUsername());
+            userResponseDto.setEmail(user.getEmail());
+            userResponseDto.setPassword(user.getPassword());
+            userResponseDto.setAddress(user.getAddress());
+            userResponseDto.setPhoneNumber(user.getPhoneNumber());
+            userResponseDto.setStatus(user.getStatus());
+            userResponseDto.setAuction(user.getAuction());
+            userResponseDto.setCreatedAt(user.getCreatedAt());
+            userResponseDto.setUpdatedAt(user.getUpdatedAt());
+
+            CommonResponseBean commonResponseBean = new CommonResponseBean();
+            commonResponseBean.setResponseCode(HttpStatus.OK.value());
+            commonResponseBean.setResponseDescription("User successfully fetched");
+            commonResponseBean.setData(userResponseDto);
+            return commonResponseBean;
+        } else {
+            CommonResponseBean commonResponseBean = new CommonResponseBean();
+            commonResponseBean.setResponseCode(HttpStatus.NO_CONTENT.value());
+            commonResponseBean.setResponseDescription("Resource not found");
+            return commonResponseBean;
+        }
+
     }
 }

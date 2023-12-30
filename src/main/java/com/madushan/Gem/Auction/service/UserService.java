@@ -5,4 +5,6 @@ import com.madushan.Gem.Auction.bean.CommonResponseBean;
 public interface UserService {
 
     CommonResponseBean getAllUsers();
+
+    CommonResponseBean getUserById(int userId);
 }
