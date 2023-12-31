@@ -1,6 +1,7 @@
 package com.madushan.Gem.Auction.service.impl;
 
 import com.madushan.Gem.Auction.bean.CommonResponseBean;
+import com.madushan.Gem.Auction.dto.requestDto.UserRequestDto;
 import com.madushan.Gem.Auction.dto.responseDto.UserResponseDto;
 import com.madushan.Gem.Auction.model.User;
 import com.madushan.Gem.Auction.repository.UserRepository;
@@ -9,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -80,5 +83,28 @@ public class UsersServiceImpl implements UserService {
             return commonResponseBean;
         }
 
+    }
+
+    @Override
+    public CommonResponseBean createUser(UserRequestDto userRequestDto) {
+
+        User user = new User();
+        user.setId(userRequestDto.getId());
+        user.setUsername(userRequestDto.getUsername());
+        user.setEmail(userRequestDto.getEmail());
+        user.setPassword(userRequestDto.getPassword());
+        user.setAddress(userRequestDto.getAddress());
+        user.setPhoneNumber(userRequestDto.getPhoneNumber());
+        user.setStatus(userRequestDto.getStatus());
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
+
+        userRepository.save(user);
+
+        CommonResponseBean commonResponseBean = new CommonResponseBean();
+        commonResponseBean.setResponseCode(HttpStatus.OK.value());
+        commonResponseBean.setResponseDescription("User successfully saved");
+        commonResponseBean.setData(user);
+        return commonResponseBean;
     }
 }
