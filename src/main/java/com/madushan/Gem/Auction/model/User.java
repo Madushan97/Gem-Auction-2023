@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -20,9 +21,9 @@ public class User {
     private Boolean status;
     private Set<Auction> auction;
     @CreatedDate
-    private Date createdAt;
+    private LocalDateTime createdAt;
     @LastModifiedDate
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -99,22 +100,22 @@ public class User {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false, length = 20)
-    public Date getCreatedAt() {
+    @Column(name = "created_at", nullable = true, length = 20)
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at", nullable = false, length = 20)
-    public Date getUpdatedAt() {
+    @Column(name = "updated_at", nullable = true, length = 20)
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

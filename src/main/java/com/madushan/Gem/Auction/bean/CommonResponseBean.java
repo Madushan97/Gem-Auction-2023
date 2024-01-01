@@ -11,4 +11,5 @@ public class CommonResponseBean {
 
     private int responseCode;
     private String responseDescription;
+    private Object data;
 }
