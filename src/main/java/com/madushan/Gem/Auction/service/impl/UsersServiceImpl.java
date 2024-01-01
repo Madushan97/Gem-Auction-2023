@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -106,5 +105,29 @@ public class UsersServiceImpl implements UserService {
         commonResponseBean.setResponseDescription("User successfully saved");
         commonResponseBean.setData(user);
         return commonResponseBean;
+    }
+
+    @Override
+    public CommonResponseBean deleteUser(int userId) {
+        try {
+            if (userRepository.existsById(userId)) {
+                userRepository.deleteById(userId);
+
+                CommonResponseBean commonResponseBean = new CommonResponseBean();
+                commonResponseBean.setResponseCode(HttpStatus.OK.value());
+                commonResponseBean.setResponseDescription("User successfully deleted");
+                commonResponseBean.setData(null);
+                return commonResponseBean;
+
+            } else {
+                CommonResponseBean commonResponseBean = new CommonResponseBean();
+                commonResponseBean.setResponseCode(HttpStatus.NOT_FOUND.value());
+                commonResponseBean.setResponseDescription("User ID : " + userId + " not found");
+                return commonResponseBean;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

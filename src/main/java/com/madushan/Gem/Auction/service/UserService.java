@@ -10,4 +10,6 @@ public interface UserService {
     CommonResponseBean getUserById(int userId);
 
     CommonResponseBean createUser(UserRequestDto userRequestDto);
+
+    CommonResponseBean deleteUser(int userId);
 }

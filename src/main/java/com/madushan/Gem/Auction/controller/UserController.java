@@ -32,4 +32,10 @@ public class UserController {
         CommonResponseBean commonResponseBean = userService.createUser(userRequestDto);
         return ResponseEntity.ok(commonResponseBean);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommonResponseBean> deleteUser(@PathVariable(value = "id")int userId) {
+        CommonResponseBean commonResponseBean = userService.deleteUser(userId);
+        return ResponseEntity.ok(commonResponseBean);
+    }
 }
