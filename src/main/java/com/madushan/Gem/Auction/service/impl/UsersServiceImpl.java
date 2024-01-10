@@ -81,7 +81,6 @@ public class UsersServiceImpl implements UserService {
             commonResponseBean.setResponseDescription("Resource not found");
             return commonResponseBean;
         }
-
     }
 
     @Override
